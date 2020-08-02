@@ -22,6 +22,13 @@ def trigonometric(x):
     plt.show()
 
 
+def logarithmic(x):
+    plt.plot(x, np.log(x))
+    plt.plot(x, np.log2(x))
+    plt.plot(x, np.log10(x))
+    plt.show()
+
+
 def plot_graph(x_plot, y_plot):
     plt.plot(x_plot, y_plot)
     plt.show()
@@ -31,7 +38,8 @@ def plotter(x):
     cprint("""Which type of plot do u wanna plot??
     Enter 1 for quadratic
     Enter 2 for cubic
-    Enter 3 for trigonometric""", 'blue')
+    Enter 3 for trigonometric
+    Enter 4 for logarithmic""", 'blue')
     plot_typ = float(input("Enter number for plot type:  "))
 
     if plot_typ == 3:
@@ -51,6 +59,9 @@ def plotter(x):
         d = float(input('Enter value for constant:  '))
         y_plot = cubic(a, b, c, d, x)
         plot_graph(x, y_plot)
+
+    elif plot_typ == 4:
+        logarithmic(x)
 
 
 # setting the axes at the centre
