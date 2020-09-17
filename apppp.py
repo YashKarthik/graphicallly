@@ -17,7 +17,7 @@ app.layout = html.Div([
                         {'label':'Polynomial','value':'poly'},
                         {'label':'Trigonometric','value':'trig'},
                         {'label':'Logarithmic','value':'log'}],
-                    multi = False, 
+                    multi = False,
                     value = 'poly'),
 
         dcc.Input(id='input-container',
@@ -47,9 +47,9 @@ def update_graph(graph_typ, equation):
 
     df = pd.DataFrame({
                     'x':x,
-                    'y':y})    
+                    'y':y})
 
-    fig = px.line(df, x = df['x'], y = df['y'], title='Your equation plotted!!!')
+    fig = px.line(df, x = df['x'], y = df['y'], title= 'Plotted')
     fig.show()
 
 
