@@ -3,8 +3,8 @@ import pandas as pd
 import plotly.express as px
 import dash
 import dash_core_components as dcc
-import dash_html_components as html 
-from dash.dependencies import Input, Output 
+import dash_html_components as html
+from dash.dependencies import Input, Output
 
 app = dash.Dash(__name__)
 x = np.linspace(-10, 10, 100)       # synthesize the data
@@ -22,7 +22,7 @@ app.layout = html.Div([
 
         dcc.Input(id='input-container',
                 value = 'x**2'),
-        
+
         html.Br(),
 
         html.Button(id = 'submit', type = 'submit', children='ok'),
