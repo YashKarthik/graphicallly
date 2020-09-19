@@ -18,7 +18,9 @@ app.layout = html.Div([
                                 value = 'poly'),
 
                     dcc.Input(id = 'equation', value = 'x', type = 'text'),
-                    html.Button(id='eq-submit', n_clicks = 0, children = 'plot !!!'),
+    html.Button(id='eq-submit', n_clicks = 0, children = 'plot !!!',
+                style = {
+                    'background-color':'lightblue', 'border-radius':'10px'}),
                     html.Div(id = 'output-graph')
 ])
 
@@ -31,6 +33,7 @@ app.layout = html.Div([
 )
 
 def update(n__clicks, equation, graph_type):
+    equation = equation.replace('^', '**')
 
     if graph_type == 'trig':
          eq = 'np.'+ equation
