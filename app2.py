@@ -45,8 +45,11 @@ def update(n__clicks, equation, graph_type):
     equation = equation.replace('^', '**')
 
     if graph_type == 'trig':
-        x = np.linspace(-4*np.pi, 4*np.pi, 2200)
         eq = 'np.'+ equation
+        if 'tan' in eq:
+            x = np.linspace(-np.pi, np.pi, 200)
+        else:
+            x = np.linspace(-4*np.pi, 4*np.pi, 2200)
 
     else:
         x = np.linspace(-50, 50, 5000)
