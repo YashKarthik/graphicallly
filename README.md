@@ -1,7 +1,5 @@
 # plot_functions
 
-This program plots **quaratic and cubic** functions by multiplying the values of x in a linearly spaced interval of values to the coefficients entered and plotting each value. And it plots **logarithmic and trigonometric functions** by calling functions from NumPy.
+Simple script to plot polynomial and trigometric expressions.
 
 ##### Check "requirements.txt" to ensure you have the required libraries
-
-###### The module "termcolor" is optional and used only for adding a splash of colors to the terminal and the command 'cprint()' can be replaced with the regular python command 'print()'
