@@ -6,22 +6,31 @@ import numpy as np
 import pandas as pd
 
 app = dash.Dash(__name__)
-x = np.linspace(-50, 50, 5000)
 
 app.layout = html.Div([
+                    html.Br(),
                     dcc.Dropdown(id = 'graph-type',
                                 options = [
                                     {'label':'Polynomial','value':'poly'},
                                     {'label':'Trigonometric','value':'trig'},
                                     ],
                                 multi = False,
-                                value = 'poly'),
+                                value = 'poly',
+                                style = {
+                                    'background-color':'lightblue',
+                                    'border-color':'dimgrey', 'border-radius':'10px',
+                                    'font-family':'Arial Rounded MT Bold'}),
+
+                    html.Br(),
 
                     dcc.Input(id = 'equation', value = 'x', type = 'text'),
-    html.Button(id='eq-submit', n_clicks = 0, children = 'plot !!!',
-                style = {
-                    'background-color':'lightblue', 'border-radius':'10px'}),
-                    html.Div(id = 'output-graph')
+                    html.Button(id='eq-submit', n_clicks = 0, children = 'Plot !!!',
+                                style = {
+                                    'background-color':'lightblue', 'border-radius':'10px'}),
+
+                    html.Div(id = 'output-graph',
+                             style = {
+                                'overflow':'allow'})
 ])
 
 @app.callback(
@@ -36,9 +45,11 @@ def update(n__clicks, equation, graph_type):
     equation = equation.replace('^', '**')
 
     if graph_type == 'trig':
-         eq = 'np.'+ equation
+        x = np.linspace(-4*np.pi, 4*np.pi, 2200)
+        eq = 'np.'+ equation
 
     else:
+        x = np.linspace(-50, 50, 5000)
         eq = equation
 
     y = eval(eq)
@@ -57,7 +68,7 @@ def update(n__clicks, equation, graph_type):
                          'title':equation
                      }
                  }
-    )
+            )
 
 if __name__ == '__main__':
     app.run_server(debug = True)
