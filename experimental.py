@@ -1,59 +1,77 @@
-import numpy as np
-import pandas as pd
-import plotly.express as px
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
+import numpy as np
+import pandas as pd
 
 app = dash.Dash(__name__)
-x = np.linspace(-10, 10, 100)       # synthesize the data
 
 app.layout = html.Div([
-        html.H1('Graphing claculator !!!', style = {'text-align':'centre'}),
+                    html.Br(),
+                    dcc.Dropdown(id = 'graph-type',
+                                options = [
+                                    {'label':'Polynomial','value':'poly'},
+                                    {'label':'Trigonometric','value':'trig'},
+                                    ],
+                                multi = False,
+                                value = 'poly',
+                                style = {
+                                    'background-color':'lightblue',
+                                    'border-color':'dimgrey', 'border-radius':'10px',
+                                    'font-family':'Arial Rounded MT Bold'}),
 
-        dcc.Dropdown(id = 'graph-type',
-                    options = [
-                        {'label':'Polynomial','value':'poly'},
-                        {'label':'Trigonometric','value':'trig'},
-                        {'label':'Logarithmic','value':'log'}],
-                    multi = False,
-                    value = 'poly'),
+                    html.Br(),
 
-        dcc.Input(id='input-container',
-                value = 'x**2'),
+                    dcc.Input(id = 'equation', value = 'x', type = 'text'),
+                    html.Button(id='eq-submit', n_clicks = 0, children = 'Plot !!!',
+                                style = {
+                                    'background-color':'lightblue', 'border-radius':'10px'}),
 
-        html.Br(),
-
-        html.Button(id = 'submit', type = 'submit', children='ok'),
-
-        dcc.Graph(id = 'output-graph', figure = {})
+                    html.Div(id = 'output-graph',
+                             style = {
+                                'overflow':'allow'})
 ])
 
 @app.callback(
-        Output(component_id = 'output-graph', component_property = 'figure'),
-         [Input(component_id = 'graph-type', component_property = 'value'),
-          Input(component_id = 'input-container', component_property = 'value')]
+        Output(component_id = 'output-graph', component_property = 'children'),
+        [Input(component_id = 'eq-submit', component_property = 'n_clicks')],
+
+        [State('equation', 'value'),
+         State('graph-type', 'value')]
 )
 
-def update_graph(graph_typ, equation):
-    global x
+def update(n__clicks, equation, graph_type):
+    equation = equation.replace('^', '**')
 
-    if graph_typ == 'poly':
-        y = eval(equation)
+    if graph_type == 'trig':
+        eq = 'np.'+ equation
+        if 'tan' in eq:
+            x = np.linspace(-np.pi, np.pi, 200)
+        else:
+            x = np.linspace(-4*np.pi, 4*np.pi, 2200)
+
     else:
-        eq = 'np.' + equation
-        y = eval(eq)
+        x = np.linspace(-50, 50, 5000)
+        eq = equation
 
+    y = eval(eq)
     df = pd.DataFrame({
-                    'x':x,
-                    'y':y})
+                     'x':x,
+                     'y':y})
 
-    fig = px.line(df, x = df['x'], y = df['y'], title= 'Plotted')
-    fig.show()
-
-
-
+    return dcc.Graph(
+                 id = 'graph',
+                 figure={
+                     'data': [{
+                         'x':df['x'], 'y':df['y'],
+                         'type':'line', 'name':equation},
+                     ],
+                     'layout':{
+                         'title':equation
+                     }
+                 }
+            )
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug = True)
