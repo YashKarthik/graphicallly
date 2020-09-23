@@ -30,7 +30,12 @@ app.layout = html.Div([
 
                     html.Div(id = 'output-graph',
                              style = {
-                                'overflow':'allow'})
+                                'overflow':'allow'},
+                    ),
+                    html.P('Double click to switch between scales',
+                          style = {
+                                'color':'#91b1bf',
+                                'font-family':'Avenir'})
 ])
 
 @app.callback(
@@ -43,11 +48,15 @@ app.layout = html.Div([
 
 def update(n__clicks, equation, graph_type):
     equation = equation.replace('^', '**')
+    y_range =  dict(range = [-5, 5])
+    x_range =  dict(range = [-5, 5])
 
     if graph_type == 'trig':
         eq = 'np.'+ equation
+
         if 'tan' in eq:
-            x = np.linspace(-np.pi, np.pi, 200)
+            x = np.linspace(-4*np.pi, 4*np.pi, 99999)
+
         else:
             x = np.linspace(-4*np.pi, 4*np.pi, 2200)
 
@@ -68,7 +77,9 @@ def update(n__clicks, equation, graph_type):
                          'type':'line', 'name':equation},
                      ],
                      'layout':{
-                         'title':equation
+                         'title':equation,
+                         'yaxis':y_range,
+                         'xaxis':x_range
                      }
                  }
             )
