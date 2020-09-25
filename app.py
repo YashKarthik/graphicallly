@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 app = dash.Dash(__name__)
-sever = app.server
+server = app.server
 
 app.layout = html.Div([
                     html.Br(),
