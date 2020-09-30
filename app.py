@@ -10,20 +10,6 @@ server = app.server
 
 app.layout = html.Div([
                     html.Br(),
-                    dcc.Dropdown(id = 'graph-type',
-                                options = [
-                                    {'label':'Polynomial','value':'poly'},
-                                    {'label':'Trigonometric','value':'trig'},
-                                    ],
-                                multi = False,
-                                value = 'poly',
-                                style = {
-                                    'background-color':'lightblue',
-                                    'border-color':'dimgrey', 'border-radius':'10px',
-                                    'font-family':'Arial Rounded MT Bold'}),
-
-                    html.Br(),
-
                     dcc.Input(id = 'equation', value = 'x', type = 'text'),
                     html.Button(id='eq-submit', n_clicks = 0, children = 'Plot !!!',
                                 style = {
@@ -43,17 +29,23 @@ app.layout = html.Div([
         Output(component_id = 'output-graph', component_property = 'children'),
         [Input(component_id = 'eq-submit', component_property = 'n_clicks')],
 
-        [State('equation', 'value'),
-         State('graph-type', 'value')]
+        [State('equation', 'value')]
 )
 
-def update(n__clicks, equation, graph_type):
+def update(n__clicks, equation):
     equation = equation.replace('^', '**')
     y_range =  dict(range = [-5, 5])
     x_range =  dict(range = [-5, 5])
 
-    if graph_type == 'trig':
-        eq = 'np.'+ equation
+    if 'sin' in equation or 'cos' in equation or 'tan' in equation:
+
+
+
+
+
+
+
+
 
         if 'tan' in eq:
             x = np.linspace(-4*np.pi, 4*np.pi, 99999)
