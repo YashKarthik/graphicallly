@@ -38,16 +38,9 @@ def update(n__clicks, equation):
     x_range =  dict(range = [-5, 5])
 
     if 'sin' in equation or 'cos' in equation or 'tan' in equation:
+        equation = equation[:equation.find('sin')] + 'np.' + equation[equation.find('sin'):equation.find('cos')] + 'np.' + equation[equation.find('cos'):equation.find('tan')] + 'np.' + equation[equation.find('tan'):]
 
-
-
-
-
-
-
-
-
-        if 'tan' in eq:
+        if 'tan' in equation:
             x = np.linspace(-4*np.pi, 4*np.pi, 99999)
 
         else:
@@ -55,9 +48,8 @@ def update(n__clicks, equation):
 
     else:
         x = np.linspace(-50, 50, 5000)
-        eq = equation
 
-    y = eval(eq)
+    y = eval(equation)
     df = pd.DataFrame({
                      'x':x,
                      'y':y})
