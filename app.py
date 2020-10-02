@@ -10,7 +10,7 @@ server = app.server
 
 app.layout = html.Div([
                     html.Br(),
-                    dcc.Input(id = 'equation', value = 'x', type = 'text'),
+                    dcc.Input(id = 'eq', value = 'x', type = 'text'),
                     html.Button(id='eq-submit', n_clicks = 0, children = 'Plot !!!',
                                 style = {
                                     'background-color':'lightblue', 'border-radius':'10px'}),
@@ -29,27 +29,31 @@ app.layout = html.Div([
         Output(component_id = 'output-graph', component_property = 'children'),
         [Input(component_id = 'eq-submit', component_property = 'n_clicks')],
 
-        [State('equation', 'value')]
+        [State('eq', 'value')]
 )
 
-def update(n__clicks, equation):
-    equation = equation.replace('^', '**')
+def update(n__clicks, eq):
+    eq = eq.replace('^', '**')
     y_range =  dict(range = [-5, 5])
     x_range =  dict(range = [-5, 5])
 
-    if 'sin' in equation or 'cos' in equation or 'tan' in equation:
-        equation = equation[:equation.find('sin')] + 'np.' + equation[equation.find('sin'):equation.find('cos')] + 'np.' + equation[equation.find('cos'):equation.find('tan')] + 'np.' + equation[equation.find('tan'):]
 
-        if 'tan' in equation:
-            x = np.linspace(-4*np.pi, 4*np.pi, 99999)
+    if 'tan' in eq:
+        eq = eq[:eq.find('tan'):] + 'np.' + eq[eq.find('tan'):]
+        x = np.linspace(-4*np.pi, 4*np.pi, 99999)
 
-        else:
-            x = np.linspace(-4*np.pi, 4*np.pi, 2200)
+    if 'sin' in eq:
+        eq = eq[:eq.find('sin'):] + 'np.' + eq[eq.find('sin'):]
+        x = np.linspace(-4*np.pi, 4*np.pi, 2200)
+
+    if 'cos' in eq:
+        eq = eq[:eq.find('cos'):] + 'np.' + eq[eq.find('cos'):]
+        x = np.linspace(-4*np.pi, 4*np.pi, 2200)
 
     else:
         x = np.linspace(-50, 50, 5000)
 
-    y = eval(equation)
+    y = eval(eq)
     df = pd.DataFrame({
                      'x':x,
                      'y':y})
@@ -59,10 +63,10 @@ def update(n__clicks, equation):
                  figure={
                      'data': [{
                          'x':df['x'], 'y':df['y'],
-                         'type':'line', 'name':equation},
+                         'type':'line', 'name':eq},
                      ],
                      'layout':{
-                         'title':equation,
+                         'title':eq,
                          'yaxis':y_range,
                          'xaxis':x_range
                      }
