@@ -2,10 +2,11 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
+import dash_bootstrap_components as dbc
 import numpy as np
 import pandas as pd
 
-app = dash.Dash(__name__)
+app = dash.Dash(external_stylesheets = [dbc.themes.SUPERHERO])
 server = app.server
 
 app.layout = html.Div([
@@ -14,11 +15,15 @@ app.layout = html.Div([
                     html.Button(id='eq-submit', n_clicks = 0, children = 'Plot !!!',
                                 style = {
                                     'background-color':'lightblue', 'border-radius':'10px'}),
+                    html.Br(),
+                    html.Br(),
 
                     html.Div(id = 'output-graph',
                              style = {
                                 'overflow':'allow'},
                     ),
+
+                    html.Br(),
                     html.P('Double click to switch between scales',
                           style = {
                                 'color':'#91b1bf',
