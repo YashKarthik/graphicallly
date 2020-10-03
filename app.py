@@ -9,26 +9,24 @@ import pandas as pd
 app = dash.Dash(external_stylesheets = [dbc.themes.SUPERHERO])
 server = app.server
 
+colors = {
+    'background': '#1b2e41',
+    'text': 'lightblue'
+}
+
 app.layout = html.Div([
                     html.Br(),
                     dcc.Input(id = 'eq', value = 'x', type = 'text'),
-                    html.Button(id='eq-submit', n_clicks = 0, children = 'Plot !!!',
-                                style = {
-                                    'background-color':'lightblue', 'border-radius':'10px'}),
+                    html.Button(id='eq-submit', n_clicks = 0, children = 'Plot !!!'),
+
                     html.Br(),
                     html.Br(),
 
-                    html.Div(id = 'output-graph',
-                             style = {
-                                'overflow':'allow'},
-                    ),
+                    html.Div(id = 'output-graph'),
 
                     html.Br(),
-                    html.P('Double click to switch between scales',
-                          style = {
-                                'color':'#91b1bf',
-                                'font-family':'Avenir'})
-])
+                    html.P('Double click to switch between scales')
+], id = 'fallback')
 
 @app.callback(
         Output(component_id = 'output-graph', component_property = 'children'),
@@ -74,6 +72,9 @@ def update(n__clicks, eq):
                          'title':eq,
                          'yaxis':y_range,
                          'xaxis':x_range,
+                         'plot_bgcolor':colors['background'],
+                         'paper_bgcolor': colors['background'],
+                         'font_color':colors['text']
                      }
                  }
             )
