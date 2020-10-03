@@ -73,7 +73,7 @@ def update(n__clicks, eq):
                      'layout':{
                          'title':eq,
                          'yaxis':y_range,
-                         'xaxis':x_range
+                         'xaxis':x_range,
                      }
                  }
             )
