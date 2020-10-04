@@ -26,8 +26,7 @@ app.layout = html.Div([
                     html.Div(id = 'output-graph'),
 
                     html.Br(),
-                    html.P('Double click to switch between scales')
-], id = 'fallback')
+                    html.P('Double click to switch between scales')], id = 'fallback')
 
 @app.callback(
         Output(component_id = 'output-graph', component_property = 'children'),
@@ -68,7 +67,7 @@ def update(n__clicks, eq):
                             x = df['x'], y = df['y']
                         )],
                 layout = {
-                    'title':eq,
+                    'title':equation,
                     'yaxis':y_range,
                     'xaxis':x_range,
                     'plot_bgcolor':colors['background'],
