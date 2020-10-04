@@ -77,10 +77,13 @@ def update(n__clicks, eq):
                     } 
                 )
     
-                layout=)
     
-    fig.update_xaxes(showline=True, linewidth=2, linecolor='lightblue')
-    fig.update_yaxes(showline=True, linewidth=2, linecolor='lightblue')
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='lightblue',
+                     showgrid = True, gridwidth = 1, gridcolor = '#545454',
+                    zeroline = True, zerolinewidth = 2, zerolinecolor = 'dimgray' )
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='lightblue',
+                     showgrid = True, gridwidth = 1, gridcolor = '#545454',
+                     zeroline = True, zerolinewidth = 2, zerolinecolor = 'dimgray' )
 
 
     return dcc.Graph(
