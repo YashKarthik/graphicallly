@@ -2,6 +2,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
+import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
 import numpy as np
 import pandas as pd
@@ -36,6 +37,7 @@ app.layout = html.Div([
 )
 
 def update(n__clicks, eq):
+    equation = eq[:]
     eq = eq.replace('^', '**')
     y_range =  dict(range = [-5, 5])
     x_range =  dict(range = [-5, 5])
@@ -61,22 +63,29 @@ def update(n__clicks, eq):
                      'x':x,
                      'y':y})
 
+    fig = go.Figure(
+                data = [go.Line(
+                            x = df['x'], y = df['y']
+                        )],
+                layout = {
+                    'title':eq,
+                    'yaxis':y_range,
+                    'xaxis':x_range,
+                    'plot_bgcolor':colors['background'],
+                    'paper_bgcolor': colors['background'],
+                    'font_color':colors['text']
+                    } 
+                )
+    
+                layout=)
+    
+    fig.update_xaxes(showline=True, linewidth=2, linecolor='lightblue')
+    fig.update_yaxes(showline=True, linewidth=2, linecolor='lightblue')
+
+
     return dcc.Graph(
                  id = 'graph',
-                 figure={
-                     'data': [{
-                         'x':df['x'], 'y':df['y'],
-                         'type':'line', 'name':eq},
-                     ],
-                     'layout':{
-                         'title':eq,
-                         'yaxis':y_range,
-                         'xaxis':x_range,
-                         'plot_bgcolor':colors['background'],
-                         'paper_bgcolor': colors['background'],
-                         'font_color':colors['text']
-                     }
-                 }
+                 figure=fig
             )
 
 if __name__ == '__main__':
