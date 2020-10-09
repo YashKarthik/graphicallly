@@ -7,7 +7,7 @@ import dash_bootstrap_components as dbc
 import numpy as np
 import pandas as pd
 
-app = dash.Dash(external_stylesheets = [dbc.themes.SUPERHERO])
+app = dash.Dash(__name__, external_stylesheets = [dbc.themes.SUPERHERO])
 server = app.server
 
 colors = {
