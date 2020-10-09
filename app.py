@@ -18,7 +18,6 @@ colors = {
 app.layout = html.Div([
                     html.Br(),
                     dcc.Input(id = 'eq', value = 'x', type = 'text'),
-                    html.Button(id='eq-submit', n_clicks = 0, children = 'Plot !!!'),
 
                     html.Br(),
                     html.Br(),
@@ -30,12 +29,10 @@ app.layout = html.Div([
 
 @app.callback(
         Output(component_id = 'output-graph', component_property = 'children'),
-        [Input(component_id = 'eq-submit', component_property = 'n_clicks')],
-
-        [State('eq', 'value')]
+        [Input(component_id = 'eq', component_property = 'value')],
 )
 
-def update(n__clicks, eq):
+def update(eq):
     equation = eq[:]
     eq = eq.replace('^', '**')
     y_range =  dict(range = [-5, 5])
@@ -79,7 +76,8 @@ def update(n__clicks, eq):
     
     fig.update_xaxes(showline=True, linewidth=2, linecolor='lightblue',
                      showgrid = True, gridwidth = 1, gridcolor = '#545454',
-                    zeroline = True, zerolinewidth = 2, zerolinecolor = 'dimgray' )
+                     zeroline = True, zerolinewidth = 2, zerolinecolor = 'dimgray' )
+
     fig.update_yaxes(showline=True, linewidth=2, linecolor='lightblue',
                      showgrid = True, gridwidth = 1, gridcolor = '#545454',
                      zeroline = True, zerolinewidth = 2, zerolinecolor = 'dimgray' )
