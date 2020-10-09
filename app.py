@@ -65,7 +65,7 @@ def update(eq):
                         )],
                 layout = {
                     "autosize":False,
-                    'width':1225,
+                    'width':1250,
                     'height':500,
                     'title':equation,
                     'yaxis':y_range,
