@@ -64,6 +64,9 @@ def update(eq):
                             x = df['x'], y = df['y']
                         )],
                 layout = {
+                    "autosize":False,
+                    'width':1225,
+                    'height':500,
                     'title':equation,
                     'yaxis':y_range,
                     'xaxis':x_range,
